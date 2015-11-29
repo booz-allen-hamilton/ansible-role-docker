@@ -1,0 +1,2 @@
+docker_compose_version: 1.5.1
+docker_machine_version: v0.5.1

@@ -1,0 +1,22 @@
+---
+- name: Install Docker Machine
+  shell: curl -L https://github.com/docker/machine/releases/download/{{ docker_machine_version }}/docker-machine_linux-amd64 > /usr/local/bin/docker-machine
+  args:
+    creates: /usr/local/bin/docker-machine
+
+- name: Apply executable permissions to docker-machine
+  file: path=/usr/local/bin/docker-machine state=file mode=0755
+
+- name: Install bash-completion
+  yum: name={{ item }}
+  with_items:
+   - bash-completion
+
+- name: Install Docker Machine bash_completion
+  shell: curl -L https://raw.githubusercontent.com/docker/machine/{{ docker_machine_version }}/contrib/completion/bash/{{ item }} > /etc/bash_completion.d/{{ item }}
+  args:
+    creates: /etc/bash_completion.d/{{ item }}
+  with_items:
+    - docker-machine-prompt.bash
+    - docker-machine-wrapper.bash
+    - docker-machine.bash

@@ -1,0 +1,20 @@
+---
+- name: Install docker-py
+  yum: name={{ item }}
+  with_items:
+   - python-docker-py
+
+- name: Run hello-world image
+  docker:
+    name: test-hello-world
+    image: hello-world
+    state: started
+  register: result
+
+- debug: var=result
+
+- name: Remove container
+  docker:
+    name: test-hello-world
+    image: hello-world
+    state: absent

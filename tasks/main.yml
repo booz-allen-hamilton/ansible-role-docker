@@ -1,0 +1,6 @@
+---
+- include: prereqs.yml        tags=prereqs
+- include: docker.yml         tags=docker
+- include: docker-compose.yml tags=docker-compose
+- include: docker-machine.yml tags=docker-machine
+- include: test.yml           tags=test

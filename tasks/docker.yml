@@ -1,0 +1,10 @@
+---
+# get_url does not work until python 2.7.9 - https://github.com/ansible/ansible/issues/11579#issuecomment-121775819
+- name: Install Docker
+  shell: curl -sSL https://get.docker.com/ | sh
+
+- name: Start Docker
+  service: name=docker state=started
+
+- name: Add user to docker group
+  user: name={{ ansible_ssh_user }} groups=docker append=yes
