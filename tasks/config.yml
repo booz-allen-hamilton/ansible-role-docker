@@ -1,0 +1,13 @@
+---
+- name: Create override directory
+  file: path=/etc/systemd/system/docker.service.d state=directory mode=0755
+
+- name: Install local.conf
+  template:
+    src: local.conf
+    dest: /etc/systemd/system/docker.service.d/
+  register: conf_file
+
+# https://github.com/ansible/ansible-modules-core/issues/191
+- shell: systemctl daemon-reload
+  when: conf_file.changed
