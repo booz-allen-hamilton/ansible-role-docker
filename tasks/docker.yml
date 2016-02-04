@@ -1,4 +1,13 @@
 ---
-# get_url does not work until python 2.7.9 - https://github.com/ansible/ansible/issues/11579#issuecomment-121775819
+- name: upgrade all packages
+  yum: name=* state=latest
+
+- name: Add the yum repo
+  copy:
+    src: docker.repo
+    dest: /etc/yum.repos.d/docker.repo
+
 - name: Install Docker
-  shell: curl -sSL https://get.docker.com/ | sh
+  yum: name={{item}} state=present
+  with_items:
+    - docker-engine
