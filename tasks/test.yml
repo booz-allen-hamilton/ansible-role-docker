@@ -1,8 +1,13 @@
 ---
-- name: Install docker-py
+- name: Install pip
   yum: name={{ item }}
   with_items:
-   - python-docker-py
+   - python-pip
+
+- name: Install docker-py
+  pip: name={{ item }}
+  with_items:
+   - docker-py
 
 - name: Run hello-world image
   docker:
